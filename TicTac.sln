@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTac.WebAPI", "TicTacWebA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTac.Tests", "TicTacWebAPIUnitTests\TicTac.Tests.csproj", "{076800FB-2055-4982-AA88-93538E3241D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTac.Services", "TicTac.Services\TicTac.Services.csproj", "{EC3A54AE-B0C7-491B-BDAC-ADD7F2EBBF34}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{076800FB-2055-4982-AA88-93538E3241D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{076800FB-2055-4982-AA88-93538E3241D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{076800FB-2055-4982-AA88-93538E3241D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC3A54AE-B0C7-491B-BDAC-ADD7F2EBBF34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC3A54AE-B0C7-491B-BDAC-ADD7F2EBBF34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC3A54AE-B0C7-491B-BDAC-ADD7F2EBBF34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC3A54AE-B0C7-491B-BDAC-ADD7F2EBBF34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

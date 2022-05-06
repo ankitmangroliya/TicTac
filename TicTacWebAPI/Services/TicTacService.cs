@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TicTac.Services;
 using TicTac.WebAPI.Models;
 
 namespace TicTac.WebAPI.Services
 {
     public class TicTacService : ITicTacService
     {
-        private readonly ITicTacAppService _ticTacAppService;
+        private readonly IEnumerable<ITicTacDispatcher> _ticTacDispatcher;
 
-        public TicTacService(ITicTacAppService ticTacAppService)
+        public TicTacService(IEnumerable<ITicTacDispatcher> ticTacDispatcher)
         {
-            _ticTacAppService = ticTacAppService;
+            _ticTacDispatcher = ticTacDispatcher;
         }
 
         public List<string> Post(RequestModel requestModel)
@@ -28,37 +27,22 @@ namespace TicTac.WebAPI.Services
 
         private void PrintResult(int number, ref List<string> listOfNumbers)
         {
-            switch (SelecteMethod(number))
+            string TicTacItemCode = string.Empty;
+
+            foreach(var dispatcher in _ticTacDispatcher)
             {
-                case 1:
-                    listOfNumbers.Add(_ticTacAppService.GetItemCode(new TicDispatcher()));
-                    break;
-                case 2:
-                    listOfNumbers.Add(_ticTacAppService.GetItemCode(new TacDispatcher()));
-                    break;
-                case 3:
-                    listOfNumbers.Add(_ticTacAppService.GetItemCode(new TicTacDispatcher()));
-                    break;
-                default:
-                    listOfNumbers.Add(number.ToString());
-                    break;
+                string itemCode = dispatcher.GetTicTacItemCode(number);
+
+                if (!string.IsNullOrWhiteSpace(itemCode))
+                    TicTacItemCode = itemCode;
             }
+
+            if (string.IsNullOrWhiteSpace(TicTacItemCode))
+                listOfNumbers.Add(number.ToString());
+            else
+                listOfNumbers.Add(TicTacItemCode);
+
         }
-
-        private int SelecteMethod(int number)
-        {
-            int selectedMethod = 0;
-
-            if (number % 3 == 0 && number % 5 != 0)
-                selectedMethod = 1;
-
-            if (number % 3 != 0 && number % 5 == 0)
-                selectedMethod = 2;
-
-            if (number % 3 == 0 && number % 5 == 0)
-                selectedMethod = 3;
-
-            return selectedMethod;
-        }
+        
     }
 }

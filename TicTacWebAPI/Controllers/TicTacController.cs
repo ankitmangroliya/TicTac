@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using TicTac.WebAPI.Models;
 using TicTac.WebAPI.Services;
 
@@ -19,15 +18,13 @@ namespace TicTac.WebAPI.Controllers
         [HttpPost]
         public IActionResult Post(RequestModel requestModel)
         {
-            try
+            if (ModelState.IsValid)
             {
                 var result = _ticTacService.Post(requestModel);
                 return new JsonResult(result);
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
+
+            return BadRequest(ModelState);
         }
     }
 }

@@ -31,30 +31,11 @@ namespace TicTac.WebAPI.Middleware
         private static Task HandleException(HttpContext context, Exception ex, ILogger<ExceptionHandlingMiddleware> logger)
         {
             logger.LogError(ex.ToString());
-
-            HttpStatusCode statusCode;
-
-            if (ex is ArgumentOutOfRangeException)
-            {
-                statusCode = HttpStatusCode.NotFound;
-            }
-            else if (ex is ArgumentException)
-            {
-                statusCode = HttpStatusCode.BadRequest;
-            }
-            else if (ex is NotImplementedException || ex is NotSupportedException)
-            {
-                statusCode = HttpStatusCode.NotImplemented;
-            }
-            else
-            {
-                statusCode = HttpStatusCode.InternalServerError;
-            }
-
+            
             var errorMessage = JsonConvert.SerializeObject(new { Message = ex.Message + Environment.NewLine + ex.ToString(), Code = "GE" });
 
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)statusCode;
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             return context.Response.WriteAsync(errorMessage);
         }
